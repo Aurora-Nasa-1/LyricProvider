@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Lyricon Manager</string>
+    <string name="xposed_description">Global Lyric Provider for Lyricon</string>
+</resources>

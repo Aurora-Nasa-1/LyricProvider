@@ -8,26 +8,26 @@ import com.android.build.api.dsl.ApplicationExtension
 
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.compose.compiler)
     alias(libs.plugins.ksp)
     kotlin("plugin.serialization") version "2.1.21"
 }
 
 configure<ApplicationExtension> {
-    namespace = "io.github.proify.lyricon.cmprovider"
-    compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
-    }
+    namespace = "io.github.proify.lyricon.manager"
+    compileSdk = 36
 
     defaultConfig {
-        applicationId = "io.github.proify.lyricon.cmprovider"
+        applicationId = "io.github.proify.lyricon.manager"
         minSdk = 28
         targetSdk = 36
-        versionCode = 3
+        versionCode = 1
         versionName = "1.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary = true
+        }
     }
 
     signingConfigs {
@@ -58,8 +58,18 @@ configure<ApplicationExtension> {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+
     buildFeatures {
+        compose = true
         buildConfig = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.15"
+    }
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
     }
 }
 
@@ -67,7 +77,6 @@ dependencies {
     implementation(project(":common"))
     implementation(libs.lyricon.provider)
     implementation(libs.kotlinx.serialization.json)
-    implementation(libs.dexkit)
 
     implementation(libs.yukihookapi.api)
     implementation(libs.kavaref.core)
@@ -76,7 +85,23 @@ dependencies {
     ksp(libs.yukihookapi.ksp.xposed)
 
     implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.activity.compose)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.ui)
+    implementation(libs.androidx.ui.graphics)
+    implementation(libs.androidx.ui.tooling.preview)
+    implementation(libs.androidx.material3)
+
+    implementation(libs.okhttp)
+    implementation(libs.coil.compose)
+    implementation(libs.androidx.datastore.preferences)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.ui.test.junit4)
+    debugImplementation(libs.androidx.ui.tooling)
+    debugImplementation(libs.androidx.ui.test.manifest)
 }
