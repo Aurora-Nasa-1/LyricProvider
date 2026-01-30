@@ -39,8 +39,7 @@
     *   您可以在本地电脑、服务器或 Android 设备（如 Termux）上运行它。
     *   **启动步骤**：
         1. 进入 `api` 目录：`cd api`
-        2. 安装依赖：`pnpm install` (或 `npm install`)
-        3. 启动服务：`node app.js`
+        2. 运行启动脚本（会自动检查更新和安装依赖）：`./start.sh`
     *   默认服务地址通常为 `http://您的IP:3000`。
 3.  **配置与登录**：
     *   打开 `Lyricon Manager` App。
