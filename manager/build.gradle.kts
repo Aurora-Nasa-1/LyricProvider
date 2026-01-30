@@ -41,10 +41,10 @@ configure<ApplicationExtension> {
 
     buildTypes {
         getByName("debug") {
-            signingConfig = signingConfigs.getByName("release")
+            // if (signingConfigs.getByName("release").storeFile?.exists() == true) signingConfig = signingConfigs.getByName("release")
         }
         getByName("release") {
-            signingConfig = signingConfigs.getByName("release")
+            if (signingConfigs.getByName("release").storeFile?.exists() == true) signingConfig = signingConfigs.getByName("release")
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(
@@ -79,6 +79,8 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
 
     implementation(libs.yukihookapi.api)
+    implementation(libs.kavaref.core)
+    implementation(libs.kavaref.extension)
     compileOnly(libs.xposed.api)
     ksp(libs.yukihookapi.ksp.xposed)
 
