@@ -32,7 +32,7 @@ configure<ApplicationExtension> {
 
     signingConfigs {
         create("release") {
-            storeFile = file(System.getenv("RELEASE_STORE_FILE") ?: "../release.jks")
+            System.getenv("RELEASE_STORE_FILE")?.takeIf { it.isNotEmpty() }?.let { storeFile = file(it) }
             storePassword = System.getenv("RELEASE_STORE_PASSWORD")
             keyAlias = System.getenv("RELEASE_KEY_ALIAS")
             keyPassword = System.getenv("RELEASE_KEY_PASSWORD")
