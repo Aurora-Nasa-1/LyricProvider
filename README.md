@@ -33,12 +33,30 @@
 > [!IMPORTANT]
 > 本插件必须配合 **[词幕](https://github.com/proify/lyricon)** 主程序使用。
 
-1. **获取插件**：[前往 Releases 页面](https://github.com/proify/LyricProvider/releases) 下载 `manager.apk`。
-2. **启动 API**：部署并启动 [网易云 API](./api)。
-3. **配置与登录**：打开 `Lyricon Manager` App，配置 API 地址并完成扫码登录。
-4. **激活模块**：在 **LSPosed** 管理器中勾选 `Lyricon Manager` 并启用。
-5. **设置作用域**：作用域应包含你想获取歌词的所有音乐 App。
-6. **即刻生效**：重启对应的音乐 App 即可。
+1.  **获取插件**：[前往 Releases 页面](https://github.com/proify/LyricProvider/releases) 下载 `manager.apk`。
+2.  **启动 API 服务端**：
+    *   本项目内置了网易云 API 子模块 (`api` 文件夹)。
+    *   您可以在本地电脑、服务器或 Android 设备（如 Termux）上运行它。
+    *   **启动步骤**：
+        1. 进入 `api` 目录：`cd api`
+        2. 安装依赖：`pnpm install` (或 `npm install`)
+        3. 启动服务：`node app.js`
+    *   默认服务地址通常为 `http://您的IP:3000`。
+3.  **配置与登录**：
+    *   打开 `Lyricon Manager` App。
+    *   在 "Netease API Base URL" 中输入您的 API 地址，点击 "Test" 检查连接。
+    *   点击 "Login via QR Code" 进行扫码登录（建议登录以获得更高质量的歌词和更好的稳定性）。
+    *   根据需要选择歌词显示模式（原词/翻译/双语）。
+4.  **激活 Xposed 模块**：
+    *   在 **LSPosed** 管理器中找到 `Lyricon Manager` 并勾选**启用**。
+    *   **设置作用域**：勾选您希望自动获取歌词的所有音乐播放器 App（如网易云、QQ音乐、Spotify、Youtube Music 等）。
+5.  **即刻生效**：重启对应的音乐 App 即可。
+
+### 💡 说明
+
+*   **管理器与插件的关系**：`manager.apk` 既是配置界面（管理器），也是 Xposed 插件本身。它集成了全局歌词获取逻辑。
+*   **无需后台运行**：完成配置和登录后，`Lyricon Manager` 应用程序**不需要**在后台运行。歌词抓取逻辑会由系统自动注入到您设置的作用域 App 中执行。
+*   **全平台支持**：通过监听系统 `MediaSession`，该插件理论上支持所有能够向系统发送媒体信息的播放器。
 
 ---
 
