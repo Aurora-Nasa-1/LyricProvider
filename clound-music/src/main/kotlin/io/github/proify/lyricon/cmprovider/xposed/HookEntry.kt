@@ -10,13 +10,14 @@ import com.highcapable.yukihookapi.YukiHookAPI
 import com.highcapable.yukihookapi.annotation.xposed.InjectYukiHookWithXposed
 import com.highcapable.yukihookapi.hook.xposed.proxy.IYukiHookXposedInit
 
-@InjectYukiHookWithXposed(modulePackageName = Constants.APP_PACKAGE_NAME)
+// @InjectYukiHookWithXposed(modulePackageName = Constants.APP_PACKAGE_NAME)
+// Deprecated: Use the manager module for global lyric providing
 open class HookEntry : IYukiHookXposedInit {
 
     override fun onHook() {
-        YukiHookAPI.encase {
-            loadApp(Constants.MUSIC_PACKAGE_NAME, CloudMusic)
-        }
+        // YukiHookAPI.encase {
+        //     loadApp(Constants.MUSIC_PACKAGE_NAME, CloudMusic)
+        // }
     }
 
     override fun onInit() {

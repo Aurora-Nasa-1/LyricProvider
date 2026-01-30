@@ -12,7 +12,9 @@
 /.kotlin/errors
 
 .DS_Store
-/build
+build/
+*/build/
+**/build/
 /captures
 .externalNativeBuild
 .cxx

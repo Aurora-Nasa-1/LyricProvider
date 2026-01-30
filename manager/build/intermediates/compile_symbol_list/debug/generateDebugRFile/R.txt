@@ -1,0 +1,4 @@
+int array xposed_scope 0x0
+int string app_name 0x0
+int string xposed_description 0x0
+int style Theme_LyricProvider 0x0

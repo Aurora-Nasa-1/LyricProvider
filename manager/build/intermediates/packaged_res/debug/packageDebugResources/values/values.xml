@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="xposed_scope">
+        <item>android</item>
+        <item>com.android.systemui</item>
+    </array>
+    <string name="app_name">Lyricon Manager</string>
+    <string name="xposed_description">Global Lyric Provider for Lyricon</string>
+    <style name="Theme.LyricProvider" parent="android:Theme.Material.Light.NoActionBar">
+    </style>
+</resources>

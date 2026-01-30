@@ -22,7 +22,7 @@
 | 平台                                            | 状态      | 说明               |
 |:----------------------------------------------|:--------|:-----------------|
 | 🍎 **Apple Music**                            | 🟢 稳定   | 支持动态歌词/翻译        |
-| ☁️ **网易云音乐**                                  | 🟢 稳定   | 支持动态歌词/翻译        |
+| ☁️ **网易云音乐 (Global)**                          | 🟢 稳定   | 全局支持，通过 API 获取     |
 | **🎵[光锥音乐](https://coneplayer.trantor.ink/)** | 🟢稳定    | 由开发者适配           |
 | 🎸 **更多平台**                                   | 🛠️ 开发中 | 欢迎提交 PR 适配更多 App |
 
@@ -33,11 +33,12 @@
 > [!IMPORTANT]
 > 本插件必须配合 **[词幕](https://github.com/proify/lyricon)** 主程序使用。
 
-1. **获取插件**：[前往 Releases 页面](https://github.com/proify/LyricProvider/releases) 下载对应的
-   `.apk` 文件。
-2. **激活模块**：安装后在 **LSPosed** 管理器中找到对应的插件并勾选**启用**。
-3. **设置作用域**：确保插件的作用域已勾选对应的音乐 App（如 Apple Music 或网易云）。
-4. **即刻生效**：重启对应的音乐 App 即可。
+1. **获取插件**：[前往 Releases 页面](https://github.com/proify/LyricProvider/releases) 下载 `manager.apk`。
+2. **启动 API**：部署并启动 [网易云 API](./api)。
+3. **配置与登录**：打开 `Lyricon Manager` App，配置 API 地址并完成扫码登录。
+4. **激活模块**：在 **LSPosed** 管理器中勾选 `Lyricon Manager` 并启用。
+5. **设置作用域**：作用域应包含你想获取歌词的所有音乐 App。
+6. **即刻生效**：重启对应的音乐 App 即可。
 
 ---
 
