@@ -3,9 +3,9 @@ package io.github.proify.lyricon.manager
 import android.content.Context
 import android.media.MediaMetadata
 import android.media.session.PlaybackState
-import com.highcapable.yukihookapi.hook.factory.prefs
+import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.highcapable.yukihookapi.hook.factory.*
 import com.highcapable.yukihookapi.hook.log.YLog
-import com.highcapable.yukihookapi.hook.param.PackageParam
 import io.github.proify.lyricon.manager.parser.LyricParser
 import io.github.proify.lyricon.lyric.model.RichLyricLine
 import io.github.proify.lyricon.lyric.model.LyricWord
@@ -17,20 +17,24 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-object GlobalHook {
+object ManagerConstants {
+    const val ICON = "<svg viewBox=\"0 0 24 24\"><path fill=\"currentColor\" d=\"M12,2C6.48,2,2,6.48,2,12s4.48,10,10,10,10-4.48,10-10S17.52,2,12,2zm0,14.5c-2.49,0-4.5-2.01-4.5-4.5S9.51,7.5,12,7.5,16.5,9.51,16.5,12,14.49,16.5,12,16.5z\"/></svg>"
+}
+
+object GlobalHook : YukiBaseHooker() {
     private var provider: LyriconProvider? = null
     private var lastTitle: String? = null
     private var lastArtist: String? = null
     private var loadingJob: Job? = null
     private val scope = CoroutineScope(Dispatchers.IO)
 
-    fun onHook(param: PackageParam) {
+    override fun onHook() {
         // Skip some common non-music apps
-        if (param.packageName == "android" || param.packageName == "com.android.systemui" || param.packageName == "com.android.settings") return
+        if (packageName == "android" || packageName == "com.android.systemui" || packageName == "com.android.settings") return
 
-        "android.media.session.MediaSession".toClass(param.classLoader).method {
+        "android.media.session.MediaSession".toClass().method {
             name = "setMetadata"
-            parameters("android.media.MediaMetadata")
+            param("android.media.MediaMetadata")
         }.hook {
             after {
                 val metadata = args[0] as? MediaMetadata ?: return@after
@@ -38,13 +42,13 @@ object GlobalHook {
                 val artist = metadata.getString(MediaMetadata.METADATA_KEY_ARTIST) ?: ""
                 val duration = metadata.getLong(MediaMetadata.METADATA_KEY_DURATION)
 
-                onMetadataChanged(param.appContext ?: return@after, title, artist, duration)
+                onMetadataChanged(appContext ?: return@after, title, artist, duration)
             }
         }
 
-        "android.media.session.MediaSession".toClass(param.classLoader).method {
+        "android.media.session.MediaSession".toClass().method {
             name = "setPlaybackState"
-            parameters("android.media.session.PlaybackState")
+            param("android.media.session.PlaybackState")
         }.hook {
             after {
                 val state = args[0] as? PlaybackState ?: return@after

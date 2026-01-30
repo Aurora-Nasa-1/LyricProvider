@@ -10,9 +10,7 @@ open class HookEntry : IYukiHookXposedInit {
     override fun onHook() {
         YukiHookAPI.encase {
             // Hook all apps to catch MediaSession metadata
-            loadApp {
-                GlobalHook.onHook(this)
-            }
+            loadApp(hooker = GlobalHook)
         }
     }
 

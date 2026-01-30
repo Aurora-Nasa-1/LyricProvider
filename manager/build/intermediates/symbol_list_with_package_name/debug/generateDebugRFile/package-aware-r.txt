@@ -1,5 +1,0 @@
-io.github.proify.lyricon.manager
-array xposed_scope
-string app_name
-string xposed_description
-style Theme_LyricProvider
